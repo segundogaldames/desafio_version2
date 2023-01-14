@@ -17,11 +17,19 @@
    <body>
   {include file="menu.tpl"}
 
-      <div class="container">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+          Menus
+      </div>
+      <div class="col-md-9">
+        {include file=$_content}
+      </div>
 
 
-            {include file=$_content}
-          </div>
+    </div>
+  </div>
+
 
     {include file="link_js.tpl"}
 

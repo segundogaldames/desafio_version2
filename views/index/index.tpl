@@ -1,4 +1,4 @@
-<div class="col-lg-6 col-md-8 mx-auto">
+<div class="col-lg-12 col-md-12 mx-auto">
     {include file="../partials/_messages.tpl"}
     <h1 class="fw-secondary">Bienvenidos a AxiomaFrame</h1>
     <p class="lead text-muted">Una propuesta de desarrollo de software simple, escalable, basado en buenas prácticas de programación y el uso de MVC (Modelo-vista-Controlador) como patrón de diseño.</p>
