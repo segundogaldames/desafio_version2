@@ -6,7 +6,7 @@
 
     <meta name="description" content="frame de aplicaciones web">
 
-    <title>{$title|default:"AxiomaFrame"}</title>
+    <title>{$title|default:"Ensayo Web"}</title>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -20,7 +20,15 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-3">
-          Menus
+        <div class="list-group mb-3">
+          <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+            Roles
+          </a>
+          <a href="#" class="list-group-item list-group-item-action">Usuarios</a>
+          <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+          <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+          <a class="list-group-item list-group-item-action disabled">A disabled link item</a>
+        </div>
       </div>
       <div class="col-md-9">
         {include file=$_content}
