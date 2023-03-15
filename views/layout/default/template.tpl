@@ -21,7 +21,7 @@
     <div class="row">
       <div class="col-md-3">
         <div class="list-group mb-3">
-          <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+          <a href="{$_layoutParams.root}roles" class="list-group-item list-group-item-action active" aria-current="true">
             Roles
           </a>
           <a href="#" class="list-group-item list-group-item-action">Usuarios</a>
