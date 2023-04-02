@@ -16,11 +16,11 @@
                 </tr>
                 <tr>
                     <th>Fecha creación:</th>
-                    <td>{$role.created_at}</td>
+                    <td>{$role.created_at|date_format:"%d-%m-%Y %H:%M:%S"}</td>
                 </tr>
                 <tr>
                     <th>Fecha modificación:</th>
-                    <td>{$role.updated_at}</td>
+                    <td>{$role.updated_at|date_format:"%d-%m-%Y %H:%M:%S"}</td>
                 </tr>
             </table>
             <p><a href="{$_layoutParams.root}roles" class="btn btn-primary">Volver</a></p>

@@ -67,4 +67,36 @@ class rolesController extends Controller
 
         $this->_view->render('view');
     }
+
+    public function edit($id = null)
+    {
+        Validate::validateModel(Role::class, $id, 'error/error');
+        $this->getMessages();
+
+        $this->_view->assign('title','Roles');
+        $this->_view->assign('asunto','Editar Rol');
+        $this->_view->assign('role', Role::find(Filter::filterInt($id)));
+        $this->_view->assign('process', "roles/update/{$id}");
+        $this->_view->assign('send', $this->encrypt($this->getForm()));
+
+        $this->_view->render('edit');
+    }
+
+    public function update($id = null)
+    {
+        Validate::validateModel(Role::class, $id, 'error/error');
+        $this->validatePUT();
+
+        $this->validateForm("roles/create",[
+            'nombre' => Filter::getText('nombre')
+        ]);
+
+        $role = Role::find(Filter::filterInt($id));
+        $role->nombre = Filter::getText('nombre');
+        $role->save();
+
+        Session::destroy('data');
+        Session::set('msg_success','El rol se ha modificado correctamente');
+        $this->redirect('roles/view/' . $id);
+    }
 }
