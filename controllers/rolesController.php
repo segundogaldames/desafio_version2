@@ -87,7 +87,7 @@ class rolesController extends Controller
         Validate::validateModel(Role::class, $id, 'error/error');
         $this->validatePUT();
 
-        $this->validateForm("roles/create",[
+        $this->validateForm("roles/edit/{$id}",[
             'nombre' => Filter::getText('nombre')
         ]);
 
