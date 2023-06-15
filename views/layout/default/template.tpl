@@ -20,15 +20,17 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-3">
-        <div class="list-group mb-3">
-          <a href="{$_layoutParams.root}roles" class="list-group-item list-group-item-action active" aria-current="true">
-            Roles
-          </a>
-          <a href="{$_layoutParams.root}usuarios" class="list-group-item list-group-item-action">Usuarios</a>
-          <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-          <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-          <a class="list-group-item list-group-item-action disabled">A disabled link item</a>
-        </div>
+        {if Session::get('authenticate')}
+          <div class="list-group mb-3">
+            <a href="{$_layoutParams.root}roles" class="list-group-item list-group-item-action active" aria-current="true">
+              Roles
+            </a>
+            <a href="{$_layoutParams.root}usuarios" class="list-group-item list-group-item-action">Usuarios</a>
+            <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+            <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+            <a href="{$_layoutParams.root}login/logout" class="list-group-item list-group-item-action">Cerrar Sesión</a>
+          </div>
+        {/if}
       </div>
       <div class="col-md-9">
         {include file=$_content}

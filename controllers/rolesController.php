@@ -6,6 +6,7 @@ class rolesController extends Controller
 {
     public function __construct()
     {
+        $this->validateInAdmin();
         parent::__construct();
     }
 

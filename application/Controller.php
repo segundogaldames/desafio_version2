@@ -162,12 +162,26 @@ class Controller
 			}
 		}
 
-		$this->redirect();
+		$this->redirect('error/denied');
+	}
+
+	public function validateInAdmin()
+	{
+		$this->validateSession();
+		$this->validateRol(['Administrador(a)']);
+		Session::time();
+	}
+
+	public function validateInAdminSuper()
+	{
+		$this->validateSession();
+		$this->validateRol(['Administrador(a)','Supervisor']);
+		Session::time();
 	}
 
 	#metodo que verifica la autenticacion de un usuario
 	protected function validateSession(){
-		if (!Session::get('autenticate')) {
+		if (!Session::get('authenticate')) {
 			$this->redirect('login/login');
 		}
 

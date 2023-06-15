@@ -4,8 +4,7 @@ class indexController extends Controller
 {
 
 	public function __construct(){
-		// $this->verificarSession();
-		// Session::tiempo();
+		$this->validateSession();
 		parent::__construct();
 	}
 

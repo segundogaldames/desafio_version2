@@ -11,6 +11,7 @@ class usuariosController extends Controller
 
     public function index()
     {
+        $this->validateInAdminSuper();
         $this->getMessages();
 
         $this->_view->assign('title', 'Usuarios');
@@ -23,6 +24,7 @@ class usuariosController extends Controller
 
     public function create()
     {
+        $this->validateInAdmin();
         $this->getMessages();
 
     	$this->_view->assign('title','Usuarios');
@@ -38,6 +40,7 @@ class usuariosController extends Controller
 
     public function store()
     {
+        $this->validateInAdmin();
         $this->validateForm("usuarios/create",[
     		'nombre' => Filter::getText('nombre'),
             'email' => $this->validateEmail(Filter::getPostParam('email')),
@@ -77,6 +80,7 @@ class usuariosController extends Controller
 
     public function view($id = null)
     {
+        $this->validateInAdminSuper();
         Validate::validateModel(Usuario::class, $id, 'error/error');
         $this->getMessages();
 
@@ -89,6 +93,7 @@ class usuariosController extends Controller
 
     public function edit($id = null)
     {
+        $this->validateInAdmin();
         Validate::validateModel(Usuario::class, $id, 'error/error');
         $this->getMessages();
 
@@ -105,6 +110,7 @@ class usuariosController extends Controller
 
     public function update($id = null)
     {
+        $this->validateInAdmin();
         Validate::validateModel(Usuario::class, $id, 'error/error');
         $this->validatePUT();
 
