@@ -22,7 +22,10 @@
       <div class="col-md-3">
         {if Session::get('authenticate')}
           <div class="list-group mb-3">
-            <a href="{$_layoutParams.root}roles" class="list-group-item list-group-item-action active" aria-current="true">
+              <a href="{$_layoutParams.root}categorias" class="list-group-item list-group-item-action" aria-current="true">
+              Categorías
+            </a>
+            <a href="{$_layoutParams.root}roles" class="list-group-item list-group-item-action" aria-current="true">
               Roles
             </a>
             <a href="{$_layoutParams.root}usuarios" class="list-group-item list-group-item-action">Usuarios</a>
