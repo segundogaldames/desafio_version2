@@ -25,6 +25,9 @@
               <a href="{$_layoutParams.root}categorias" class="list-group-item list-group-item-action" aria-current="true">
               Categorías
             </a>
+            <a href="{$_layoutParams.root}clientes" class="list-group-item list-group-item-action" aria-current="true">
+              Clientes
+            </a>
             <a href="{$_layoutParams.root}roles" class="list-group-item list-group-item-action" aria-current="true">
               Roles
             </a>
