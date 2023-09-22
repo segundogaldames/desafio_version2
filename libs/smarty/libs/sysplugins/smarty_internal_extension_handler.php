@@ -179,7 +179,7 @@ class Smarty_Internal_Extension_Handler
      */
     public function __set($property_name, $value)
     {
-        $this->$property_name = $value;
+        $property_name = $value;
     }
 
     /**

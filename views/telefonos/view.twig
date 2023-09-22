@@ -1,0 +1,51 @@
+{% extends "layout/default/template.twig" %}
+{% block title %} {{options.title}} {% endblock %}
+{% block content %}
+    <div class="col-md-12">
+        <div class="card">
+            <h5 class="card-header">
+                {{options.asunto}}
+            </h5>
+            <div class="card-body">
+                {% include "partials/_messages.twig" %}
+                <table class="table table-hover">
+                    <tr>
+                        <th>Id:</th>
+                        <td>{{telefono.id}}</td>
+                    </tr>
+                    <tr>
+                        <th>Número:</th>
+                        <td>{{telefono.numero}}</td>
+                    </tr>
+                    <tr>
+                        <th>Modelo:</th>
+                        <td>{{telefono.telefonoable_type}}</td>
+                    </tr>
+                    <tr>
+                        <th>Propietario(a):</th>
+                        <td>{{propietario.nombre}}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha creación:</th>
+                        <td>{{telefono.created_at|date("d-m-Y H:i:s")}}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha modificación:</th>
+                        <td>{{telefono.updated_at|date("d-m-Y H:i:s")}}</td>
+                    </tr>
+                </table>
+                <p>
+                    <a href="{{BASE}}{{ruta}}" class="btn btn-primary">Volver</a>
+                    <a href="{{BASE}}telefonos/edit/{{telefono.id}}" class="btn btn-warning">Editar</a>
+                </p>
+                <p>
+                    <form method="post" action="{{BASE}}{{options.process}}">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="send" value="{{send}}">
+                        <input type="submit" value="Eliminar" class="btn btn-danger">
+                    </form>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

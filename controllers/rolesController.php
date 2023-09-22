@@ -12,27 +12,33 @@ class rolesController extends Controller
 
     public function index()
     {
-        $this->getMessages();
+        list($msg_success, $msg_error) = $this->getMessages();
 
-        $this->_view->assign('title', 'Roles');
-        $this->_view->assign('asunto', 'Lista de Roles');
-        $this->_view->assign('mensaje', 'No hay roles registrados');
-        $this->_view->assign('roles', Role::select('id','nombre')->get());
+        $options = [
+            'title' => 'Roles',
+            'asunto' => 'Lista de Roles',
+            'mensaje' => 'No hay roles registrados'
+        ];
 
-        $this->_view->render('index');
+        $roles = Role::select('id','nombre')->get();
+
+        $this->_view->load('roles/index', compact('options','roles','msg_success','msg_error'));
     }
 
     public function create()
     {
-    	$this->getMessages();
+    	list($msg_success, $msg_error) = $this->getMessages();
 
-    	$this->_view->assign('title','Roles');
-    	$this->_view->assign('asunto','Nuevo Rol');
-    	$this->_view->assign('role', Session::get('data'));
-    	$this->_view->assign('process', 'roles/store');
-    	$this->_view->assign('send', $this->encrypt($this->getForm()));
+        $options = [
+            'title' => 'Roles',
+            'asunto' => 'Nuevo Rol',
+            'process' => 'roles/store',
+            'send' => $this->encrypt($this->getForm())
+        ];
 
-    	$this->_view->render('create');
+        $role = Session::get('data');
+
+    	$this->_view->load('roles/create', compact('options','role','msg_success','msg_error'));
     }
 
     public function store()
@@ -60,27 +66,33 @@ class rolesController extends Controller
     public function view($id = null)
     {
         Validate::validateModel(Role::class, $id, 'error/error');
-        $this->getMessages();
+        list($msg_success, $msg_error) = $this->getMessages();
 
-        $this->_view->assign('title', 'Roles');
-        $this->_view->assign('asunto', 'Detalle Rol');
-        $this->_view->assign('role', Role::find(Filter::filterInt($id))); //select * from roles where id = value;
+        $options = [
+            'title' => 'Roles',
+            'asunto' => 'Detalle Rol'
+        ];
 
-        $this->_view->render('view');
+        $role = Role::find(Filter::filterInt($id));
+
+    	$this->_view->load('roles/view', compact('options','role','msg_success','msg_error'));
     }
 
     public function edit($id = null)
     {
         Validate::validateModel(Role::class, $id, 'error/error');
-        $this->getMessages();
+        list($msg_success, $msg_error) = $this->getMessages();
 
-        $this->_view->assign('title','Roles');
-        $this->_view->assign('asunto','Editar Rol');
-        $this->_view->assign('role', Role::find(Filter::filterInt($id)));
-        $this->_view->assign('process', "roles/update/{$id}");
-        $this->_view->assign('send', $this->encrypt($this->getForm()));
+        $options = [
+            'title' => 'Roles',
+            'asunto' => 'Editar Rol',
+            'process' => "roles/update/{$id}",
+            'send' => $this->encrypt($this->getForm())
+        ];
 
-        $this->_view->render('edit');
+        $role = Role::find(Filter::filterInt($id));
+
+    	$this->_view->load('roles/create', compact('options','role','msg_success','msg_error'));
     }
 
     public function update($id = null)

@@ -716,7 +716,7 @@ class Smarty_Internal_Template extends Smarty_Internal_TemplateBase
             case 'compiled':
             case 'cached':
             case 'compiler':
-                $this->$property_name = $value;
+                @$this->$property_name = $value;
                 return;
             default:
                 // Smarty property ?

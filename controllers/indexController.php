@@ -11,7 +11,8 @@ class indexController extends Controller
 	public function index()
 	{
 		$this->getMessages();
+		$title = 'Página de Inicio';
 
-		$this->_view->render('index');
+		$this->_view->load('index/index', compact('title'));
 	}
 }

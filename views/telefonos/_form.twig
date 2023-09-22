@@ -1,0 +1,18 @@
+<form action="{{BASE}}{{options.process}}/{{propietario.id}}/{{modelo}}" method="post">
+	<div class="mb-3">
+		<label for="nombre" class="form-label">Destinatario:
+			{{propietario.nombre}}</label>
+	</div>
+    <div class="mb-3">
+		<label for="modelo" class="form-label">Modelo:
+			{{modelo}}</label>
+	</div>
+	<div class="mb-3">
+		<label for="numero" class="form-label">Número</label>
+		<input type="number" name="numero" value="{{telefono.numero|default("") }}" class="form-control" id="numero" aria-describedby="numero">
+		<div id="numero" class="form-text text-danger">Ingrese el número telefónico</div>
+	</div>
+	<input type="hidden" name="_method" value="PUT">
+	<input type="hidden" name="send" value="{{options.send}}">
+	<button type="submit" class="btn btn-primary">Guardar</button>
+</form>

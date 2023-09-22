@@ -5,19 +5,20 @@ class loginController extends Controller
 {
     public function __construct()
     {
-        parent::__construct();    
+        parent::__construct(); 
+           
     }
 
     public function login()
     {
-        $this->getMessages();
+        list($msg_success, $msg_error) = $this->getMessages();
 
-    	$this->_view->assign('title','Login');
-    	$this->_view->assign('asunto','Acceso');
-    	$this->_view->assign('process', 'login/store');
-    	$this->_view->assign('send', $this->encrypt($this->getForm()));
+        $title = 'Login';
+        $asunto = 'Acceso';
+        $process = 'login/store';
+    	$send = $this->encrypt($this->getForm());
 
-    	$this->_view->render('login');
+    	$this->_view->load('login/login', compact('title','asunto','process','send','msg_success','msg_error'));
     }
 
     public function store()

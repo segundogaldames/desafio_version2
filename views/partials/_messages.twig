@@ -1,0 +1,9 @@
+{% if msg_success %}
+    <div style="margin-top: 40px;"></div>
+    <p class="alert alert-success">{{ msg_success }}</p>
+{% endif %}
+
+{% if msg_error %}
+    <div style="margin-top: 40px;"></div>
+    <p class="alert alert-danger">{{ msg_error }}</p>
+{% endif %}

@@ -11,28 +11,34 @@ class categoriasController extends Controller
     public function index()
     {
         $this->validateInAdminSuper();
-        $this->getMessages();
+        list($msg_success, $msg_error) = $this->getMessages();
 
-        $this->_view->assign('title', 'Categorias');
-        $this->_view->assign('asunto', 'Lista de Categorías');
-        $this->_view->assign('mensaje', 'No hay categorías registradas');
-        $this->_view->assign('categorias', Categoria::select('id','nombre')->get());
+        $options = [
+            'title' => 'Categorías',
+            'asunto' => 'Lista de Categorías',
+            'mensaje' => 'No hay categorías registradas'
+        ];
 
-        $this->_view->render('index');
+        $categorias = Categoria::select('id','nombre')->get();
+
+        $this->_view->load('categorias/index', compact('options','categorias','msg_success','msg_error'));
     }
 
     public function create()
     {
         $this->validateInAdmin();
-    	$this->getMessages();
+    	list($msg_success, $msg_error) = $this->getMessages();
 
-    	$this->_view->assign('title','Categorías');
-    	$this->_view->assign('asunto','Nueva Categoría');
-    	$this->_view->assign('categoria', Session::get('data'));
-    	$this->_view->assign('process', 'categorias/store');
-    	$this->_view->assign('send', $this->encrypt($this->getForm()));
+        $options = [
+            'title' => 'Categorías',
+            'asunto' => 'Nueva Categoría',
+            'process' => 'categorias/store',
+            'send' => $this->encrypt($this->getForm())
+        ];
 
-    	$this->_view->render('create');
+        $categoria = Session::get('data');
+
+    	$this->_view->load('categorias/create', compact('options','categoria','msg_success','msg_error'));
     }
 
     public function store()
@@ -62,28 +68,34 @@ class categoriasController extends Controller
     {
         $this->validateInAdminSuper();
         Validate::validateModel(Categoria::class, $id, 'error/error');
-        $this->getMessages();
+        list($msg_success, $msg_error) = $this->getMessages();
 
-        $this->_view->assign('title', 'Categorias');
-        $this->_view->assign('asunto', 'Detalle Categoría');
-        $this->_view->assign('categoria', Categoria::find(Filter::filterInt($id))); //select * from roles where id = value;
+        $options = [
+            'title' => 'Categorias',
+            'asunto' => 'Detalle Categoría'
+        ];
 
-        $this->_view->render('view');
+        $categoria = Categoria::find(Filter::filterInt($id));
+
+        $this->_view->load('categorias/view', compact('options','categoria','msg_success','msg_error'));
     }
 
     public function edit($id = null)
     {
         $this->validateInAdmin();
         Validate::validateModel(Categoria::class, $id, 'error/error');
-        $this->getMessages();
+        list($msg_success, $msg_error) = $this->getMessages();
 
-        $this->_view->assign('title','Categorias');
-        $this->_view->assign('asunto','Editar Categoría');
-        $this->_view->assign('categoria', Categoria::find(Filter::filterInt($id)));
-        $this->_view->assign('process', "categorias/update/{$id}");
-        $this->_view->assign('send', $this->encrypt($this->getForm()));
+        $options = [
+            'title' => 'Categorías',
+            'asunto' => 'Editar Categoría',
+            'process' => "categorias/update/{$id}",
+            'send' => $this->encrypt($this->getForm())
+        ];
 
-        $this->_view->render('edit');
+        $categoria = Categoria::find(Filter::filterInt($id));
+
+        $this->_view->load('categorias/edit', compact('options','categoria','msg_success','msg_error'));
     }
 
     public function update($id = null)

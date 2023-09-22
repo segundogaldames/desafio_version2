@@ -76,6 +76,21 @@ class Helper
         }
     }
 
+    public static function getMessages()
+    {
+        if (Session::get('msg_success')) {
+			$msg = Session::get('msg_success');
+			Session::destroy('msg_success');
+		}
+
+		if (Session::get('msg_error')) {
+			$msg = Session::get('msg_error');
+			Session::destroy('msg_error');
+		}
+
+        return $msg;
+    }
+
     #metodo que permite el acceso a un elemento a partir de un rol
     public static function getRolAdmin($role)
     {

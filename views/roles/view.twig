@@ -1,0 +1,33 @@
+{% extends "layout/default/template.twig" %}
+{% block title %} {{options.title}} {% endblock %}
+{% block content %}
+    <div class="col-md-12">
+        <div class="card">
+            <h5 class="card-header">
+                {{options.asunto}}
+            </h5>
+            <div class="card-body">
+                {% include "partials/_messages.twig" %}
+                <table class="table table-hover">
+                    <tr>
+                        <th>Id:</th>
+                        <td>{{role.id}}</td>
+                    </tr>
+                    <tr>
+                        <th>Nombre:</th>
+                        <td>{{role.nombre}}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha creación:</th>
+                        <td>{{role.created_at|date("d-m-Y H:i:s")}}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha modificación:</th>
+                        <td>{{role.updated_at|date("d-m-Y H:i:s")}}</td>
+                    </tr>
+                </table>
+                <p><a href="{{BASE}}roles" class="btn btn-primary">Volver</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

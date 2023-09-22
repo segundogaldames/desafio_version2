@@ -98,7 +98,7 @@ class Smarty extends Smarty_Internal_TemplateBase
     /**
      * smarty version
      */
-    const SMARTY_VERSION = '4.0.0-rc.0';
+    const SMARTY_VERSION = '4.0.0';
     /**
      * define variable scopes
      */
@@ -363,7 +363,7 @@ class Smarty extends Smarty_Internal_TemplateBase
      *
      * @var boolean
      */
-    public $debugging = false;
+    public $debugging = true;
 
     /**
      * This determines if debugging is enable-able from the browser.

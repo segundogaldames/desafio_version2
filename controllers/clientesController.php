@@ -1,5 +1,6 @@
 <?php
 use models\Cliente;
+use models\Telefono;
 
 class clientesController extends Controller
 {
@@ -11,29 +12,35 @@ class clientesController extends Controller
     public function index()
     {
         $this->validateInAdminSuper();
-        $this->getMessages();
+        list($msg_success, $msg_error) = $this->getMessages();
 
-        $this->_view->assign('title', 'Clientes');
-        $this->_view->assign('asunto', 'Lista de Clientes');
-        $this->_view->assign('mensaje', 'No hay clientes registrados');
-        $this->_view->assign('clientes', Cliente::select('id','rut','nombre','empresa')->get());
+        $options = [
+            'title' => 'Clientes',
+            'asunto' => 'Lista de Clientes',
+            'mensaje' => 'No hay clientes registrados',
+        ];
 
-        $this->_view->render('index');
+        $clientes = Cliente::select('id','rut','nombre','empresa')->get();
+
+        $this->_view->load('clientes/index', compact('options','clientes','msg_success','msg_error'));
     }
 
     public function create()
     {
         $this->validateInAdmin();
-    	$this->getMessages();
+    	list($msg_success, $msg_error) = $this->getMessages();
 
-    	$this->_view->assign('title','Clientes');
-    	$this->_view->assign('asunto','Nuevo Cliente');
-    	$this->_view->assign('cliente', Session::get('data'));
-        $this->_view->assign('action', 'create');
-    	$this->_view->assign('process', 'clientes/store');
-    	$this->_view->assign('send', $this->encrypt($this->getForm()));
+        $options = [
+            'title' => 'Clientes',
+            'asunto' => 'Nuevo Cliente',
+            'action' => 'create',
+            'process' => 'clientes/store',
+            'send' => $this->encrypt($this->getForm())
+        ];
 
-    	$this->_view->render('create');
+        $cliente = Session::get('data');
+
+    	$this->_view->load('clientes/create', compact('options','cliente','msg_success','msg_error'));
     }
 
     public function store()
@@ -69,29 +76,37 @@ class clientesController extends Controller
     {
         $this->validateInAdminSuper();
         Validate::validateModel(Cliente::class, $id, 'error/error');
-        $this->getMessages();
+        list($msg_success, $msg_error) = $this->getMessages();
 
-        $this->_view->assign('title', 'Clientes');
-        $this->_view->assign('asunto', 'Detalle Cliente');
-        $this->_view->assign('cliente', Cliente::find(Filter::filterInt($id))); //select * from roles where id = value;
+        $options = [
+            'title' => 'Clientes',
+            'asunto' => 'Detalle Cliente',
+            'modelo' => 'Cliente'
+        ];
 
-        $this->_view->render('view');
+        $cliente = Cliente::find(Filter::filterInt($id));
+        $telefonos = Telefono::select('id','numero')->where('telefonoable_id', Filter::filterInt($id))->where('telefonoable_type','Cliente')->get();
+
+        $this->_view->load('clientes/view', compact('options','cliente','msg_success','msg_error','telefonos'));
     }
 
     public function edit($id = null)
     {
         $this->validateInAdmin();
         Validate::validateModel(Cliente::class, $id, 'error/error');
-        $this->getMessages();
+        list($msg_success, $msg_error) = $this->getMessages();
 
-        $this->_view->assign('title','CLientes');
-        $this->_view->assign('asunto','Editar Cliente');
-        $this->_view->assign('cliente', Cliente::find(Filter::filterInt($id)));
-        $this->_view->assign('action', 'edit');
-        $this->_view->assign('process', "clientes/update/{$id}");
-        $this->_view->assign('send', $this->encrypt($this->getForm()));
+        $options = [
+            'title' => 'Clientes',
+            'asunto' => 'Editar Cliente',
+            'action' => 'edit',
+            'process' => "clientes/update/{$id}",
+            'send' => $this->encrypt($this->getForm())
+        ];
 
-        $this->_view->render('edit');
+        $cliente = Cliente::find(Filter::filterInt($id));
+
+        $this->_view->load('clientes/edit', compact('options','cliente','msg_success','msg_error'));
     }
 
     public function update($id = null)

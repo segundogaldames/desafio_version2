@@ -8,15 +8,21 @@ class errorController extends Controller
 
 	public function error()
 	{
-		$this->_view->assign('title', 'Página No Encontrada');
-		$this->_view->assign('message', 'Sitio no encontrado');
-		$this->_view->render('error');
+		$options = [
+			'title' => 'Página no Encontrada',
+			'message' => 'Sitio No Encontrado'
+		];
+		
+		$this->_view->load('error/error', compact('options'));
 	}
 
 	public function denied()
 	{
-		$this->_view->assign('title', 'Inaccesible');
-		$this->_view->assign('message', 'Acceso no permitido');
-		$this->_view->render('denied');
+		$options = [
+			'title' => 'Inaccesible',
+			'message' => 'Acceso no permitido'
+		];
+		
+		$this->_view->load('error/denied', compact('options'));
 	}
 }

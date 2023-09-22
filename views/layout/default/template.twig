@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+   <head>
+   	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="frame de aplicaciones web">
+
+    <title>
+      {% block title %}{% endblock %}
+    </title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    {% include "layout/default/link_css.twig" %}
+
+
+   </head>
+   <body>
+  {% include "layout/default/menu.twig" %}
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-3">
+          {% if session.authenticate %}
+            <div class="list-group mb-3">
+                <a href="{{BASE}}categorias" class="list-group-item list-group-item-action" aria-current="true">
+                Categorías
+              </a>
+              <a href="{{BASE}}clientes" class="list-group-item list-group-item-action" aria-current="true">
+                Clientes
+              </a>
+              <a href="{{BASE}}roles" class="list-group-item list-group-item-action" aria-current="true">
+                Roles
+              </a>
+              <a href="{{BASE}}usuarios" class="list-group-item list-group-item-action">Usuarios</a>
+              <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+              <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+              <a href="{{BASE}}login/logout" class="list-group-item list-group-item-action">Cerrar Sesión</a>
+            </div>
+          {% endif %}
+          
+        
+      </div>
+      <div class="col-md-9">
+        {% block content %}{% endblock %}
+      </div>
+
+
+    </div>
+  </div>
+
+
+    {% include "layout/default/link_js.twig" %}
+
+    <noscript>
+      <p>Debe tener el soporte de Javascript habilitado</p>
+    </noscript>
+  </body>
+</html>

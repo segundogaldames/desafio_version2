@@ -1,0 +1,17 @@
+{% extends "layout/default/template.twig" %}
+{% block title %} {{options.title}} {% endblock %}
+{% block content %}
+    <div class="col-md-12">
+        <div class="card">
+            <h5 class="card-header">
+                {{options.asunto}}
+            </h5>
+            <div class="card-body">
+                <div class="col-md-6">
+                    {% include "partials/_messages.twig" %}
+                    {% include "telefonos/_form.twig" %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

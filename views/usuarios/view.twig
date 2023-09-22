@@ -1,0 +1,51 @@
+{% extends "layout/default/template.twig" %}
+{% block title %} {{options.title}} {% endblock %}
+{% block content %}
+    <div class="col-md-12">
+        <div class="card">
+            <h5 class="card-header">
+                {{options.asunto}}
+            </h5>
+            <div class="card-body">
+                {% include "partials/_messages.twig" %}
+                <table class="table table-hover">
+                    <tr>
+                        <th>Id:</th>
+                        <td>{{usuario.id}}</td>
+                    </tr>
+                    <tr>
+                        <th>Nombre:</th>
+                        <td>{{usuario.nombre}}</td>
+                    </tr>
+                    <tr>
+                        <th>Email:</th>
+                        <td>{{usuario.email}}</td>
+                    </tr>
+                    <tr>
+                        <th>Rol:</th>
+                        <td>{{usuario.role.nombre}}</td>
+                    </tr>
+                    <tr>
+                        <th>Activo:</th>
+                        <td>
+                            {% if usuario.activo == 1 %}
+                                Si
+                            {% else %}
+                                No
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Fecha creación:</th>
+                        <td>{{usuario.created_at|date("d-m-Y H:i:s")}}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha modificación:</th>
+                        <td>{{usuario.updated_at|date("d-m-Y H:i:s")}}</td>
+                    </tr>
+                </table>
+                <p><a href="{{BASE}}usuarios" class="btn btn-primary">Volver</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

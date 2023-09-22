@@ -1,4 +1,6 @@
 <?php
+
+use Illuminate\Support\Facades\File;
 use models\Usuario;
 use models\Role;
 
@@ -12,30 +14,36 @@ class usuariosController extends Controller
     public function index()
     {
         $this->validateInAdminSuper();
-        $this->getMessages();
+        list($msg_success, $msg_error) = $this->getMessages();
 
-        $this->_view->assign('title', 'Usuarios');
-        $this->_view->assign('asunto', 'Lista de Usuarios');
-        $this->_view->assign('mensaje', 'No hay usuarios registrados');
-        $this->_view->assign('usuarios', Usuario::with('role')->get());
+        $options = [
+            'title' => 'Usuarios',
+            'asunto' => 'Lista de Usuarios',
+            'mensaje' => 'No hay usuarios registrados'
+        ];
 
-        $this->_view->render('index');
+        $usuarios = Usuario::with('role')->get();
+
+        $this->_view->load('usuarios/index', compact('options','usuarios','msg_success','msg_error'));
     }
 
     public function create()
     {
         $this->validateInAdmin();
-        $this->getMessages();
+        list($msg_success, $msg_error) = $this->getMessages();
 
-    	$this->_view->assign('title','Usuarios');
-    	$this->_view->assign('asunto','Nuevo Usuario');
-    	$this->_view->assign('usuario', Session::get('data'));
-        $this->_view->assign('roles', Role::select('id','nombre')->orderBy('nombre')->get());
-        $this->_view->assign('action', 'Crear');
-    	$this->_view->assign('process', 'usuarios/store');
-    	$this->_view->assign('send', $this->encrypt($this->getForm()));
+        $options = [
+            'title' => 'Usuarios',
+            'asunto' => 'Nuevo Usuario',
+            'action' => 'create',
+            'process' => 'usuarios/store',
+            'send' => $this->encrypt($this->getForm())
+        ];
 
-    	$this->_view->render('create');
+        $usuario = Session::get('data');
+        $roles = Role::select('id','nombre')->orderBy('nombre')->get();
+
+    	$this->_view->load('usuarios/create', compact('options','usuario','roles','msg_success', 'msg_error'));
     }
 
     public function store()
@@ -82,30 +90,36 @@ class usuariosController extends Controller
     {
         $this->validateInAdminSuper();
         Validate::validateModel(Usuario::class, $id, 'error/error');
-        $this->getMessages();
+        list($msg_success, $msg_error) = $this->getMessages();
 
-        $this->_view->assign('title', 'Usuarios');
-        $this->_view->assign('asunto', 'Detalle Usuario');
-        $this->_view->assign('usuario', Usuario::with('role')->find(Filter::filterInt($id)));
+        $options = [
+            'title' => 'Usuarios',
+            'asunto' => 'Detalle Usuario'
+        ];
 
-        $this->_view->render('view');
+        $usuario = Usuario::with('role')->find(Filter::filterInt($id));
+
+        $this->_view->load('usuarios/view', compact('options','usuario','msg_success','msg_error'));
     }
 
     public function edit($id = null)
     {
         $this->validateInAdmin();
         Validate::validateModel(Usuario::class, $id, 'error/error');
-        $this->getMessages();
+        list($msg_success, $msg_error) = $this->getMessages();
 
-        $this->_view->assign('title','Usuarios');
-        $this->_view->assign('asunto','Editar Usuario');
-        $this->_view->assign('action', 'Editar');
-        $this->_view->assign('usuario', Usuario::with('role')->find(Filter::filterInt($id)));
-        $this->_view->assign('roles', Role::select('id','nombre')->orderBy('nombre')->get());
-        $this->_view->assign('process', "usuarios/update/{$id}");
-        $this->_view->assign('send', $this->encrypt($this->getForm()));
+        $options = [
+            'title' => 'Usuarios',
+            'asunto' => 'Editar Usuario',
+            'action' => 'edit',
+            'process' => "usuarios/update/{$id}",
+            'send' => $this->encrypt($this->getForm())
+        ];
 
-        $this->_view->render('edit');
+        $usuario = Usuario::with('role')->find(Filter::filterInt($id));
+        $roles = Role::select('id','nombre')->orderBy('nombre')->get();
+
+        $this->_view->load('usuarios/edit', compact('options','usuario','roles','msg_success','msg_error'));
     }
 
     public function update($id = null)
