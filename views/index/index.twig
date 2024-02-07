@@ -6,8 +6,23 @@
         <div class="card">
             <h5 class="card-header">Titulo del recurso</h5>
             <div class="card-body">
-                <h5 class="card-title">Frase clave</h5>
-                <p class="card-text">Contenido del recurso.</p>
+                <h5 class="card-title">Buscador de Cliente</h5>
+                <p class="card-text">
+                    <form class="row row-cols-lg-auto g-1 align-items-center" action="{{BASE}}{{process}}" method="post">
+                        <div class="col-12">
+                            <label class="visually-hidden" for="inlineFormInputGroupUsername">RUT</label>
+                            <div class="input-group">
+                            <div class="input-group-text">RUT:</div>
+                            <input type="text" name="rut" class="form-control" id="inlineFormInputGroupUsername" placeholder="RUT">
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <input type="hidden" name="send" value="{{send}}">
+                            <button type="submit" class="btn btn-primary">Buscar</button>
+                        </div>
+                    </form>
+                </p>
             </div>
         </div>
     </div>

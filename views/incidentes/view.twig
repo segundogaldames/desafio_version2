@@ -1,0 +1,45 @@
+{% extends "layout/default/template.twig" %}
+{% block title %} {{options.title}} {% endblock %}
+{% block content %}
+    <div class="col-md-12">
+        <div class="card">
+            <h5 class="card-header">
+                {{options.asunto}}
+            </h5>
+            <div class="card-body">
+                {% include "partials/_messages.twig" %}
+                <table class="table table-hover">
+                    <tr>
+                        <th>Id:</th>
+                        <td>{{incidente.id}}</td>
+                    </tr>
+                    <tr>
+                        <th>Categoría:</th>
+                        <td>{{incidente.categoria.nombre}}</td>
+                    </tr>
+                    <tr>
+                        <th>Cliente:</th>
+                        <td>{{incidente.cliente.nombre}}</td>
+                    </tr>
+                    <tr>
+                        <th>Usuario:</th>
+                        <td>{{incidente.usuario.nombre}}</td>
+                    </tr>
+                    <tr>
+                        <th>Descripción:</th>
+                        <td>{{incidente.descripcion}}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha creación:</th>
+                        <td>{{incidente.created_at|date("d-m-Y H:i:s") }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha modificación:</th>
+                        <td>{{incidente.updated_at|date("d-m-Y H:i:s") }}</td>
+                    </tr>
+                </table>
+                <p><a href="{{BASE}}incidentes" class="btn btn-primary">Volver</a></p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

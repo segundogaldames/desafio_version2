@@ -36,6 +36,7 @@ class incidentesController extends Controller
             'title' => 'Incidentes',
             'asunto' => 'Nuevo Incidente',
             'process' => 'incidentes/store',
+            'task' => 'create',
             'send' => $this->encrypt($this->getForm())
         ];
 
@@ -93,6 +94,7 @@ class incidentesController extends Controller
             'title' => 'Incidentes',
             'asunto' => 'Editar Incidente',
             'process' => "incidentes/update/{$id}",
+            'task' => 'edit',
             'send' => $this->encrypt($this->getForm())
         ];
 
@@ -100,7 +102,7 @@ class incidentesController extends Controller
         $categorias = Categoria::orderBy('nombre')->get();
         $clientes = Cliente::orderBy('nombre')->get();
 
-        $this->_view->load('categorias/edit', compact('options','incidente','msg_success','msg_error','categorias','clientes'));
+        $this->_view->load('incidentes/edit', compact('options','incidente','msg_success','msg_error','categorias','clientes'));
     }
 
     public function update($id = null)

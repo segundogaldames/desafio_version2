@@ -1,0 +1,71 @@
+{% extends "layout/default/template.twig" %}
+{% block title %} {{options.title}} {% endblock %}
+{% block content %}
+    <div class="col-md-12">
+        <div class="card">
+            <h5 class="card-header">
+                {{options.asunto}}
+            </h5>
+            <div class="card-body">
+                {% include "partials/_messages.twig" %}
+                <table class="table table-hover">
+                    <tr>
+                        <th>Id:</th>
+                        <td>{{cliente.id}}</td>
+                    </tr>
+                    <tr>
+                        <th>RUT:</th>
+                        <td>{{cliente.rut}}</td>
+                    </tr>
+                    <tr>
+                        <th>Nombre:</th>
+                        <td>{{cliente.nombre}}</td>
+                    </tr>
+                    <tr>
+                        <th>Email:</th>
+                        <td>{{cliente.email}}</td>
+                    </tr>
+                    <tr>
+                        <th>Empresa:</th>
+                        <td>
+                            {% if cliente.empresa == 1 %}
+                                Si
+                            {% else %}
+                                No
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Teléfonos:</th>
+                        <td>
+                            {% if telefonos is not empty %}
+                                <div class="list-group">
+                                    {% for telefono in telefonos %}
+                                        <a href="{{BASE}}telefonos/view/{{telefono.id}}" class="list-group-item list-group-item-action" aria-current="true">
+                                            {% include "partials/icon_telefono.twig" %}  {{telefono.numero}}
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <p class="text-info">No hay teléfonos registrados</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Fecha creación:</th>
+                        <td>{{cliente.created_at|date("d-m-Y H:i:s")}}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha modificación:</th>
+                        <td>{{cliente.updated_at|date("d-m-Y H:i:s")}}</td>
+                    </tr>
+                </table>
+                <p>
+                    <a href="{{BASE}}" class="btn btn-primary">Volver</a>
+                    <a href="{{BASE}}telefonos/create/{{cliente.id}}/{{options.modelo}}" class="btn btn-success">Agregar Teléfono</a>
+                    <a href="{{BASE}}incidentes/createIncidente/{{cliente.id}}" class="btn btn-danger">Agregar Incidente</a>
+                </p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

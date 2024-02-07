@@ -9,6 +9,9 @@
     <div class="mb-3">
         <label for="categoria" class="form-label">Categoría</label>
         <select name="categoria" id="categoria" class="form-control">
+            {% if options.task == 'edit' %}
+                <option value="{{incidente.categoria_id}}">{{incidente.categoria.nombre}}</option>
+            {% endif %}
             <option value="">Seleccione...</option>
             {% for categoria in categorias %}
                 <option value="{{categoria.id}}">{{categoria.nombre}}</option>
@@ -19,6 +22,9 @@
     <div class="mb-3">
         <label for="cliente" class="form-label">Cliente</label>
         <select name="cliente" id="cliente" class="form-control">
+            {% if options.task == 'edit' %}
+                <option value="{{incidente.cliente_id}}">{{incidente.cliente.nombre}}</option>
+            {% endif %}
             <option value="">Seleccione...</option>
             {% for cliente in clientes %}
                 <option value="{{cliente.id}}">{{cliente.nombre}}</option>

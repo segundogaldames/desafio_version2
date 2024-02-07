@@ -27,7 +27,7 @@ class clientesController extends Controller
 
     public function create()
     {
-        $this->validateInAdmin();
+        $this->validateInAdminSuper();
     	list($msg_success, $msg_error) = $this->getMessages();
 
         $options = [
@@ -45,7 +45,7 @@ class clientesController extends Controller
 
     public function store()
     {
-        $this->validateInAdmin();
+        $this->validateInAdminSuper();
     	$this->validateForm("clientes/create",[
             'rut' => $this->validateRut(Filter::getText('rut')),
     		'nombre' => Filter::getText('nombre'),
@@ -89,7 +89,7 @@ class clientesController extends Controller
 
         $this->_view->load('clientes/view', compact('options','cliente','msg_success','msg_error','telefonos'));
     }
-
+    
     public function edit($id = null)
     {
         $this->validateInAdmin();
@@ -130,5 +130,33 @@ class clientesController extends Controller
         Session::destroy('data');
         Session::set('msg_success','El cliente se ha modificado correctamente');
         $this->redirect('clientes/view/' . $id);
+    }
+
+    //metodo post para encontrar cliente por rut
+    public function clienteRut()
+    {
+        $this->validateInAdminSuper();
+        list($msg_success, $msg_error) = $this->getMessages();
+
+        $options = [
+            'title' => 'Clientes',
+            'asunto' => 'Detalle Cliente',
+            'process' => "clientes/clienteRut",
+            'send' => $this->encrypt($this->getForm())
+        ];
+
+    	$this->validateForm("index/index",[
+            'rut' => $this->validateRut(Filter::getText('rut')),
+    	]);
+    	$cliente = Cliente::where('rut', Filter::getText('rut'))->first();
+        
+        $telefonos = Telefono::select('id','numero')->where('telefonoable_id', $cliente->id)->where('telefonoable_type','Cliente')->get();
+        //print_r($telefonos);exit;
+    	if (!$cliente) {
+    		Session::set('msg_error','No hay cliente con este RUT');
+    		$this->redirect('index');
+    	}
+
+        $this->_view->load('clientes/clienteRut', compact('cliente','options','msg_success','msg_error','telefonos'));
     }
 }

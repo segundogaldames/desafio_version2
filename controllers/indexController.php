@@ -12,7 +12,9 @@ class indexController extends Controller
 	{
 		$this->getMessages();
 		$title = 'Página de Inicio';
+		$process = 'clientes/clienteRut';
+		$send = $this->encrypt($this->getForm());
 
-		$this->_view->load('index/index', compact('title'));
+		$this->_view->load('index/index', compact('title','process','send'));
 	}
 }
