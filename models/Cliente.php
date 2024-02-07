@@ -8,4 +8,9 @@ class Cliente extends Model
 {
     protected $table = 'clientes';
     protected $fillable = [];
+
+    public function incidentes()
+    {
+        return $this->hasMany(Incidente::class);
+    }
 }

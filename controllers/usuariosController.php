@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\File;
 use models\Usuario;
 use models\Role;
+use models\Telefono;
 
 class usuariosController extends Controller
 {
@@ -94,12 +95,14 @@ class usuariosController extends Controller
 
         $options = [
             'title' => 'Usuarios',
-            'asunto' => 'Detalle Usuario'
+            'asunto' => 'Detalle Usuario',
+            'modelo' => 'Usuario'
         ];
 
         $usuario = Usuario::with('role')->find(Filter::filterInt($id));
+        $telefonos = Telefono::select('id','numero')->where('telefonoable_id', Filter::filterInt($id))->where('telefonoable_type','Usuario')->get();
 
-        $this->_view->load('usuarios/view', compact('options','usuario','msg_success','msg_error'));
+        $this->_view->load('usuarios/view', compact('options','usuario','msg_success','msg_error','telefonos'));
     }
 
     public function edit($id = null)

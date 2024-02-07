@@ -13,4 +13,9 @@ class Usuario extends Model
     {
         return $this->belongsTo(Role::class);
     }
+
+    public function incidentes()
+    {
+        return $this->hasMany(Incidente::class);
+    }
 }

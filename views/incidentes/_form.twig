@@ -1,0 +1,32 @@
+<form action="{{BASE}}{{options.process}}" method="post">
+    <div class="mb-3">
+        <label for="descripcion" class="form-label">Descripción</label>
+        <textarea name="descripcion" id="descripcion" class="form-control" rows="4">
+            {{incidente.descripcion|default("")}}
+        </textarea>
+        <div id="categoria" class="form-text text-danger">Ingrese la descripción del incidente</div>
+    </div>
+    <div class="mb-3">
+        <label for="categoria" class="form-label">Categoría</label>
+        <select name="categoria" id="categoria" class="form-control">
+            <option value="">Seleccione...</option>
+            {% for categoria in categorias %}
+                <option value="{{categoria.id}}">{{categoria.nombre}}</option>
+            {% endfor %}
+        </select>
+        <div id="categoria" class="form-text text-danger">Seleccione la categoría del incidente</div>
+    </div>
+    <div class="mb-3">
+        <label for="cliente" class="form-label">Cliente</label>
+        <select name="cliente" id="cliente" class="form-control">
+            <option value="">Seleccione...</option>
+            {% for cliente in clientes %}
+                <option value="{{cliente.id}}">{{cliente.nombre}}</option>
+            {% endfor %}
+        </select>
+        <div id="cliente" class="form-text text-danger">Seleccione el cliente del incidente</div>
+    </div>
+    <input type="hidden" name="_method" value="PUT">
+    <input type="hidden" name="send" value="{{options.send}}">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
