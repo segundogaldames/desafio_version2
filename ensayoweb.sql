@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 22-09-2023 a las 23:42:20
+-- Tiempo de generación: 07-02-2024 a las 21:56:23
 -- Versión del servidor: 10.4.28-MariaDB
 -- Versión de PHP: 8.2.4
 
@@ -70,6 +70,30 @@ INSERT INTO `clientes` (`id`, `rut`, `nombre`, `email`, `empresa`, `created_at`,
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `incidentes`
+--
+
+CREATE TABLE `incidentes` (
+  `id` int(11) NOT NULL,
+  `descripcion` text NOT NULL,
+  `categoria_id` int(11) NOT NULL,
+  `cliente_id` int(11) NOT NULL,
+  `usuario_id` int(11) NOT NULL,
+  `created_at` datetime DEFAULT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `incidentes`
+--
+
+INSERT INTO `incidentes` (`id`, `descripcion`, `categoria_id`, `cliente_id`, `usuario_id`, `created_at`, `updated_at`) VALUES
+(1, 'Descripcion de prueba', 3, 1, 1, '2024-02-07 17:41:10', '2024-02-07 17:41:10'),
+(2, 'Descripcion prueba 2', 1, 2, 1, '2024-02-07 17:42:14', '2024-02-07 17:42:14');
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `roles`
 --
 
@@ -108,7 +132,8 @@ CREATE TABLE `telefonos` (
 --
 
 INSERT INTO `telefonos` (`id`, `numero`, `telefonoable_id`, `telefonoable_type`, `created_at`, `updated_at`) VALUES
-(2, 955567890, 1, 'Cliente', '2023-09-22 17:11:13', '2023-09-22 17:11:13');
+(2, 955567890, 1, 'Cliente', '2023-09-22 17:11:13', '2023-09-22 17:11:13'),
+(6, 678943560, 1, 'Usuario', '2023-10-09 13:55:05', '2023-10-09 13:55:05');
 
 -- --------------------------------------------------------
 
@@ -152,6 +177,12 @@ ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indices de la tabla `incidentes`
+--
+ALTER TABLE `incidentes`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indices de la tabla `roles`
 --
 ALTER TABLE `roles`
@@ -186,6 +217,12 @@ ALTER TABLE `clientes`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT de la tabla `incidentes`
+--
+ALTER TABLE `incidentes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT de la tabla `roles`
 --
 ALTER TABLE `roles`
@@ -195,7 +232,7 @@ ALTER TABLE `roles`
 -- AUTO_INCREMENT de la tabla `telefonos`
 --
 ALTER TABLE `telefonos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
