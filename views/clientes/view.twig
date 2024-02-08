@@ -52,6 +52,22 @@
                         </td>
                     </tr>
                     <tr>
+                        <th>Incidentes:</th>
+                        <td>
+                            {% if cliente.incidentes is not empty %}
+                                <div class="list-group">
+                                    {% for incidente in cliente.incidentes %}
+                                        <a href="{{BASE}}incidentes/view/{{incidente.id}}" class="list-group-item list-group-item-action" aria-current="true">
+                                            {% include "partials/icon_list.twig" %}  {{incidente.created_at}} | {{incidente.categoria.nombre}}
+                                        </a>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <p class="text-info">No hay incidentes registrados</p>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
                         <th>Fecha creación:</th>
                         <td>{{cliente.created_at|date("d-m-Y H:i:s")}}</td>
                     </tr>
@@ -63,6 +79,7 @@
                 <p>
                     <a href="{{BASE}}clientes" class="btn btn-primary">Volver</a>
                     <a href="{{BASE}}telefonos/create/{{cliente.id}}/{{options.modelo}}" class="btn btn-success">Agregar Teléfono</a>
+                    <a href="{{BASE}}incidentes/createIncidente/{{cliente.id}}" class="btn btn-danger">Agregar Incidente</a>
                 </p>
             </div>
         </div>

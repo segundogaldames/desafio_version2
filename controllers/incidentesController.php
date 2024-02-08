@@ -86,7 +86,7 @@ class incidentesController extends Controller
 
     public function edit($id = null)
     {
-        $this->validateInAdmin();
+        $this->validateInAdminSuper();
         Validate::validateModel(Incidente::class, $id, 'error/error');
         list($msg_success, $msg_error) = $this->getMessages();
 
@@ -107,7 +107,7 @@ class incidentesController extends Controller
 
     public function update($id = null)
     {
-        $this->validateInAdmin();
+        $this->validateInAdminSuper();
         Validate::validateModel(Incidente::class, $id, 'error/error');
         $this->validatePUT();
 
@@ -126,5 +126,47 @@ class incidentesController extends Controller
         Session::destroy('data');
         Session::set('msg_success','El incidente se ha modificado correctamente');
         $this->redirect('incidentes/view/' . $id);
+    }
+
+    public function createIncidente($cliente = null)
+    {
+        $this->validateInAdminSuper();
+        Validate::validateModel(Cliente::class, $cliente, 'error/error');
+        list($msg_success, $msg_error) = $this->getMessages();
+
+        $options = [
+            'title' => 'Incidentes',
+            'asunto' => 'Nuevo Incidente',
+            'process' => "incidentes/storeIncidente/{$cliente}",
+            'task' => 'createIncidente',
+            'send' => $this->encrypt($this->getForm())
+        ];
+
+        $incidente = Session::get('data');
+        $categorias = Categoria::orderBy('nombre')->get();
+
+        $this->_view->load('incidentes/createIncidente', compact('options','incidente','msg_success','msg_error','categorias'));
+    }
+
+    public function storeIncidente($cliente = null)
+    {
+        $this->validateInAdminSuper();
+        Validate::validateModel(Cliente::class, $cliente, 'error/error');
+
+        $this->validateForm("incidentes/createIncidente/{$cliente}",[
+            'descripcion' => Filter::getText('descripcion'),
+            'categoria' => Filter::getText('categoria')
+        ]);
+
+        $incidente = new Incidente();
+    	$incidente->descripcion = Filter::getText('descripcion');
+        $incidente->categoria_id = Filter::getInt('categoria');
+        $incidente->cliente_id = Filter::filterInt($cliente);
+        $incidente->usuario_id = Session::get('user_id');
+    	$incidente->save();
+
+    	Session::destroy('data');
+    	Session::set('msg_success','El incidente se ha registrado correctamente');
+    	$this->redirect('clientes/view/' . $cliente);
     }
 }

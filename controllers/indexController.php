@@ -10,11 +10,12 @@ class indexController extends Controller
 
 	public function index()
 	{
-		$this->getMessages();
+		list($msg_success, $msg_error) = $this->getMessages();
+
 		$title = 'Página de Inicio';
 		$process = 'clientes/clienteRut';
 		$send = $this->encrypt($this->getForm());
 
-		$this->_view->load('index/index', compact('title','process','send'));
+		$this->_view->load('index/index', compact('title','process','send','msg_success','msg_error'));
 	}
 }

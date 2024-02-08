@@ -1,6 +1,7 @@
 <?php
 use models\Cliente;
 use models\Telefono;
+use models\Incidente;
 
 class clientesController extends Controller
 {
@@ -84,7 +85,7 @@ class clientesController extends Controller
             'modelo' => 'Cliente'
         ];
 
-        $cliente = Cliente::find(Filter::filterInt($id));
+        $cliente = Cliente::with('incidentes')->find(Filter::filterInt($id));
         $telefonos = Telefono::select('id','numero')->where('telefonoable_id', Filter::filterInt($id))->where('telefonoable_type','Cliente')->get();
 
         $this->_view->load('clientes/view', compact('options','cliente','msg_success','msg_error','telefonos'));
@@ -148,9 +149,11 @@ class clientesController extends Controller
     	$this->validateForm("index/index",[
             'rut' => $this->validateRut(Filter::getText('rut')),
     	]);
-    	$cliente = Cliente::where('rut', Filter::getText('rut'))->first();
+    	
+        $cliente = Cliente::with('incidentes')->where('rut', Filter::getText('rut'))->first();
         
         $telefonos = Telefono::select('id','numero')->where('telefonoable_id', $cliente->id)->where('telefonoable_type','Cliente')->get();
+        
         //print_r($telefonos);exit;
     	if (!$cliente) {
     		Session::set('msg_error','No hay cliente con este RUT');
