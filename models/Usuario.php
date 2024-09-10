@@ -18,4 +18,9 @@ class Usuario extends Model
     {
         return $this->hasMany(Incidente::class);
     }
+
+    public function asignaciones()
+    {
+        return $this->hasMany(Asignacion::class);
+    }
 }

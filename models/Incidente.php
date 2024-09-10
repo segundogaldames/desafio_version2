@@ -23,4 +23,9 @@ class Incidente extends Model
     {
         return $this->belongsTo(Usuario::class);
     }
+
+    public function asignaciones()
+    {
+        return $this->hasMany(Asignacion::class);
+    }
 }

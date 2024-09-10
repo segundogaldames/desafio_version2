@@ -8,4 +8,9 @@ class Prioridad extends Model
 {
     protected $table = 'prioridades';
     protected $fillable = [];
+
+    public function asignaciones()
+    {
+        return $this->hasMany(Asignacion::class);
+    }
 }
