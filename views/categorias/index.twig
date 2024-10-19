@@ -9,7 +9,7 @@
             </h5>
             <div class="card-body">
                 {% include "partials/_messages.twig" %}
-                {% if categorias %}
+                {% if categorias is not empty %}
                     <table class="table table-hover">
                         <thead>
                             <tr>

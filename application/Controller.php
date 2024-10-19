@@ -171,14 +171,14 @@ class Controller
 	public function validateInAdmin()
 	{
 		$this->validateSession();
-		$this->validateRol(['Administrador(a)']);
+		$this->validateRol(['Administrador']);
 		Session::time();
 	}
 
 	public function validateInAdminSuper()
 	{
 		$this->validateSession();
-		$this->validateRol(['Administrador(a)','Supervisor']);
+		$this->validateRol(['Administrador','Supervisor']);
 		Session::time();
 	}
 
