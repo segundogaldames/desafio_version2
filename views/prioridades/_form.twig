@@ -1,26 +1,27 @@
 <form action="{{BASE}}{{options.process}}" method="post">
-    <div class="mb-3">
-        <label for="nombre" class="form-label">Nombre</label>
-        <input type="text" name="nombre" value="{{options.prioridad.nombre|default("") }}" class="form-control" id="nombre"
-            aria-describedby="rol">
-        <div id="nombre" class="form-text text-danger">Ingrese el nombre de la  prioridad</div>
-    </div>
-    <div class="mb-3">
-        <label for="plazo" class="form-label">Plazo</label>
-        <select name="plazo" class="form-control">
-            {% if options.action == 'edit' %}
-                <option value="{{options.prioridad.dias_plazo}}">{{options.prioridad.dias_plazo}} días </option>
-            {% endif %}
-            <option value="">Seleccione los dias de plazo</option>
-            <option value="1">1 Día</option>
-            <option value="2">2 Días</option>
-            <option value="3">3 Días</option>
-            <option value="4">4 Días</option>
-            <option value="5">5 Días</option>
-        </select>
-        <div id="plazo" class="form-text text-danger">Ingrese el plazo de la prioridad</div>
-    </div>
-    <input type="hidden" name="_method" value="PUT">
-    <input type="hidden" name="send" value="{{options.send}}">
-    <button type="submit" class="btn btn-primary">Guardar</button>
+	<div class="mb-3">
+		<label for="nombre" class="form-label">Nombre</label>
+		<input type="text" name="nombre" value="{{options.prioridad.nombre|default("") }}" class="form-control" id="nombre" aria-describedby="rol">
+		<div id="nombre" class="form-text text-danger">Ingrese el nombre de la  prioridad</div>
+	</div>
+	<div class="mb-3">
+		<label for="plazo" class="form-label">Plazo</label>
+		<select name="plazo" class="form-control">
+			{% if options.action == 'edit' %}
+				<option value="{{options.prioridad.dias_plazo}}">{{options.prioridad.dias_plazo}}
+					días
+				</option>
+			{% endif %}
+			<option value="">Seleccione los dias de plazo</option>
+			<option value="1">1 Día</option>
+			<option value="2">2 Días</option>
+			<option value="3">3 Días</option>
+			<option value="4">4 Días</option>
+			<option value="5">5 Días</option>
+		</select>
+		<div id="plazo" class="form-text text-danger">Ingrese el plazo de la prioridad</div>
+	</div>
+	<input type="hidden" name="_method" value="PUT">
+	<input type="hidden" name="send" value="{{options.send}}">
+	<button type="submit" class="btn btn-primary">Guardar</button>
 </form>
