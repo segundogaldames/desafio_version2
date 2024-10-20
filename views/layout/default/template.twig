@@ -24,6 +24,16 @@
       <div class="col-md-3">
           {% if session.authenticate %}
             <div class="list-group mb-3">
+              {% if session.user_role == 'Soporte Técnico' %}
+                <a href="{{BASE}}asignaciones/asignacionesTecnico" class="list-group-item list-group-item-action" aria-current="true">
+                Asignaciones</a>
+              {% else %}
+                <a href="{{BASE}}asignaciones" class="list-group-item list-group-item-action" aria-current="true">
+                Asignaciones
+              </a>
+                
+              {% endif %}
+              
                 <a href="{{BASE}}categorias" class="list-group-item list-group-item-action" aria-current="true">
                 Categorías
               </a>

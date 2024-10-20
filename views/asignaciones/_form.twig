@@ -1,0 +1,55 @@
+<form action="{{BASE}}{{options.process}}" method="post">
+    {% if options.action == 'edit' %}
+        <div class="mb-3">
+            <label for="resuelto" class="form-label">Estado</label>
+            <select name="resuelto" id="resuelto" class="form-control">
+                <option value="{{options.asignacion.resuelto}}">
+                    {% if options.asignacion.resuelto == 1 %}
+                        Resuelto
+                    {% else %}
+                        Pendiente
+                    {% endif %}
+                    
+                </option>
+                <option value="">Seleccione...</option>
+                {% if options.asignacion.resuelto == 1 %}
+                    <option value="2">Pendiente</option>
+                {% else %}
+                    <option value="1">Resuelto</option>
+                {% endif %}
+            </select>
+            <div id="categoria" class="form-text text-danger">Seleccione un técnico</div>
+        </div>
+    {% endif %}
+    
+    <div class="mb-3">
+        <label for="tecnico" class="form-label">Técnico</label>
+        <select name="tecnico" id="tecnico" class="form-control">
+            {% if options.action == 'edit' %}
+                <option value="{{options.asignacion.usuario.id}}">{{options.asignacion.usuario.nombre}} </option>
+            {% endif %}
+            
+            <option value="">Seleccione...</option>
+            {% for tecnico in options.tecnicos %}
+                <option value="{{tecnico.id}}">{{tecnico.nombre}}</option>
+            {% endfor %}
+        </select>
+        <div id="categoria" class="form-text text-danger">Seleccione un técnico</div>
+    </div>
+    <div class="mb-3">
+        <label for="prioridad" class="form-label">Prioridad</label>
+        <select name="prioridad" id="prioridad" class="form-control">
+            {% if options.action == 'edit' %}
+                <option value="{{options.asignacion.prioridad.id}}">{{options.asignacion.prioridad.nombre}} </option>
+            {% endif %}
+            <option value="">Seleccione...</option>
+            {% for prioridad in options.prioridades %}
+                <option value="{{prioridad.id}}">{{prioridad.nombre}}</option>
+            {% endfor %}
+        </select>
+        <div id="categoria" class="form-text text-danger">Seleccione una prioridad</div>
+    </div>
+    <input type="hidden" name="_method" value="PUT">
+    <input type="hidden" name="send" value="{{options.send}}">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>

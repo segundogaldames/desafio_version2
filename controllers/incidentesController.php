@@ -3,6 +3,7 @@ use models\Incidente;
 use models\Categoria;
 use models\Cliente;
 use models\Usuario;
+use models\Asignacion;
 
 class incidentesController extends Controller
 {
@@ -79,7 +80,7 @@ class incidentesController extends Controller
             'asunto' => 'Detalle Incidente'
         ];
 
-        $incidente = Incidente::with(['categoria','cliente','usuario'])->find(Filter::filterInt($id));
+        $incidente = Incidente::with(['categoria','cliente','usuario','asignacion'])->find(Filter::filterInt($id));
 
         $this->_view->load('incidentes/view', compact('options','incidente','msg_success','msg_error'));
     }

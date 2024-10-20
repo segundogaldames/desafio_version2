@@ -37,10 +37,35 @@
                         <th>Fecha modificación:</th>
                         <td>{{incidente.updated_at|date("d-m-Y H:i:s") }}</td>
                     </tr>
+                    {% if incidente.asignacion.usuario.nombre %}
+                        <tr>
+                            <th>Técnico Asignado:</th>
+                            <td>{{incidente.asignacion.usuario.nombre}} </td>
+                        </tr>
+                        <tr>
+                            <th>Estado:</th>
+                            <td>
+                                {% if incidente.asignacion.resuelto == 1 %}
+                                    <span class="badge text-bg-success">Resuelto</span>
+                                {% else %}
+                                    <span class="badge text-bg-warning">Pendiente</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <th colspan="2"><span class="text-warning">No asignado</span></th>
+                        </tr>
+                        
+                    {% endif %}
                 </table>
                 <p>
                     <a href="{{BASE}}incidentes" class="btn btn-primary">Volver</a>
-                    <a href="{{BASE}}asignaciones/create/{{incidente.id}}" class="btn btn-success">Asignar Técnico</a>
+                    {% if not incidente.asignacion.usuario.nombre %}
+                        <a href="{{BASE}}asignaciones/create/{{incidente.id}}" class="btn btn-success">Asignar Técnico</a>
+
+                    {% endif %}
+                    
                 </p>
             </div>
         </div>

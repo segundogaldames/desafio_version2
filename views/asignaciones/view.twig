@@ -1,0 +1,57 @@
+{% extends "layout/default/template.twig" %}
+{% block title %}
+	{{options.title}}
+{% endblock %}
+{% block content %}
+	<div class="col-md-12">
+		<div class="card">
+			<h5 class="card-header">
+				{{options.asunto}}
+			</h5>
+			<div class="card-body">
+				{% include "partials/_messages.twig" %}
+				<table class="table table-hover">
+					<tr>
+						<th>Id:</th>
+						<td>{{options.asignacion.id}}</td>
+					</tr>
+					<tr>
+						<th>Incidente:</th>
+						<td>{{options.asignacion.incidente.descripcion}}</td>
+					</tr>
+					<tr>
+						<th>Prioridad:</th>
+						<td>{{options.asignacion.prioridad.nombre}}
+						</td>
+					</tr>
+					<tr>
+						<th>Asignando a:</th>
+						<td>{{options.asignacion.usuario.nombre}}
+						</td>
+					</tr>
+					<tr>
+						<th>Estado:</th>
+						<td>
+							{% if options.asignacion.resuelto == 1 %}
+								<span class="badge text-bg-success">Resuelto</span>
+							{% else %}
+								<span class="badge text-bg-warning">Pendiente</span>
+							{% endif %}
+						</td>
+					</tr>
+					<tr>
+						<th>Fecha creación:</th>
+						<td>{{options.asignacion.created_at|date("d-m-Y H:i:s") }}</td>
+					</tr>
+					<tr>
+						<th>Fecha modificación:</th>
+						<td>{{options.asignacion.updated_at|date("d-m-Y H:i:s") }}</td>
+					</tr>
+				</table>
+				<p>
+					<a href="javascript:history.back()" class="btn btn-primary">Volver</a>
+				</p>
+			</div>
+		</div>
+	</div>
+{% endblock %}
