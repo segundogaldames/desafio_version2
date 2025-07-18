@@ -1,27 +1,4 @@
-<form action="{{BASE}}{{options.process}}" method="post">
-    {% if options.action == 'edit' %}
-        <div class="mb-3">
-            <label for="resuelto" class="form-label">Estado</label>
-            <select name="resuelto" id="resuelto" class="form-control">
-                <option value="{{options.asignacion.resuelto}}">
-                    {% if options.asignacion.resuelto == 1 %}
-                        Resuelto
-                    {% else %}
-                        Pendiente
-                    {% endif %}
-                    
-                </option>
-                <option value="">Seleccione...</option>
-                {% if options.asignacion.resuelto == 1 %}
-                    <option value="2">Pendiente</option>
-                {% else %}
-                    <option value="1">Resuelto</option>
-                {% endif %}
-            </select>
-            <div id="categoria" class="form-text text-danger">Seleccione un técnico</div>
-        </div>
-    {% endif %}
-    
+<form action="{{BASE}}{{options.process}}" method="post">  
     <div class="mb-3">
         <label for="tecnico" class="form-label">Técnico</label>
         <select name="tecnico" id="tecnico" class="form-control">
@@ -49,6 +26,21 @@
         </select>
         <div id="categoria" class="form-text text-danger">Seleccione una prioridad</div>
     </div>
+    {% if options.action == 'edit' %}
+        <div class="mb-3">
+            <label for="resuelto" class="form-label">Estado</label>
+            <select name="resuelto" id="resuelto" class="form-control">
+                {% if options.asignacion.resuelto == 1 %}
+                    <option value="{{options.asignacion.resuelto}}">Resuelto</option>
+                    <option value="2">Pendiente</option>
+                {% else %}
+                    <option value="{{options.asignacion.resuelto}}">Pendiente</option>
+                    <option value="1">Resuelto</option>
+                {% endif %}
+            </select>
+            <div id="resuelto" class="form-text text-danger">Seleccione un estado</div>
+        </div>
+    {% endif %}
     <input type="hidden" name="_method" value="PUT">
     <input type="hidden" name="send" value="{{options.send}}">
     <button type="submit" class="btn btn-primary">Guardar</button>

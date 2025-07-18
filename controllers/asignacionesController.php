@@ -87,24 +87,10 @@ class asignacionesController extends Controller
         $options = [
             'title' => 'Asignaciones',
             'asunto' => 'Detalle de Asignación',
-            'asignacion' => Asignacion::with('incidente','usuario','prioridad')->first()
+            'asignacion' => Asignacion::with(['incidente','usuario','prioridad'])->find(Filter::filterInt($id))
         ];
 
         $this->_view->load('asignaciones/view', compact('options','msg_success','msg_error'));
-    }
-
-    public function asignacionesTecnico()
-    {
-        list($msg_success, $msg_error) = $this->getMessages();
-
-        $options = [
-            'title' => 'Asignaciones',
-            'asunto' => 'Lista de Asignaciones',
-            'asignaciones' => Asignacion::with('incidente','prioridad')->where('usuario_id', Session::get('user_id'))->orderBy('created_at','desc')->get(),
-            'mensaje' => 'No hay asignaciones disponibles'
-        ];
-
-        $this->_view->load('asignaciones/asignacionesTecnico', compact('options','msg_success','msg_error'));
     }
 
     public function edit($id = null)
@@ -121,7 +107,7 @@ class asignacionesController extends Controller
             'send' => $this->encrypt($this->getForm()),
             'tecnicos' => Usuario::select('id','nombre')->where('role_id',3)->where('activo',1)->orderBy('nombre')->get(),
             'prioridades' => Prioridad::select('id','nombre')->orderBy('nombre')->get(),
-            'asignacion' => Asignacion::with('incidente','usuario','prioridad')->first()
+            'asignacion' => Asignacion::with(['incidente','usuario','prioridad'])->find(Filter::filterInt($id))
         ];
 
         $this->_view->load('asignaciones/edit', compact('options','msg_success','msg_error'));
@@ -129,18 +115,16 @@ class asignacionesController extends Controller
 
     public function update($id = null)
     {
-        #print_r($_POST);exit;
         $this->validateInAdminSuper();
         Validate::validateModel(Asignacion::class, $id, 'error/error');
         $this->validatePUT();
-
         $this->validateForm("asignaciones/edit/{$id}",[
-            'resuelto' => Filter::getText('resuelto'),
             'tecnico' => Filter::getText('tecnico'),
-            'prioridad' => Filter::getText('prioridad')
+            'prioridad' => Filter::getText('prioridad'),
+            'resuelto' => Filter::getText('resuelto'),
         ]);
 
-        $asignacion = Asignacion::select('id')->find(Filter::filterInt($id));
+        $asignacion = Asignacion::find(Filter::filterInt($id));
         $asignacion->resuelto = Filter::getInt('resuelto');
         $asignacion->usuario_id = Filter::getInt('tecnico');
         $asignacion->prioridad_id = Filter::getInt('prioridad');
@@ -150,4 +134,19 @@ class asignacionesController extends Controller
         Session::set('msg_success','La asignación se ha modificado correctamente');
         $this->redirect('asignaciones/view/' . $id);
     }
+
+    public function asignacionesTecnico()
+    {
+        list($msg_success, $msg_error) = $this->getMessages();
+
+        $options = [
+            'title' => 'Asignaciones',
+            'asunto' => 'Lista de Asignaciones',
+            'asignaciones' => Asignacion::with('incidente','prioridad')->where('usuario_id', Session::get('user_id'))->orderBy('created_at','desc')->get(),
+            'mensaje' => 'No hay asignaciones disponibles'
+        ];
+
+        $this->_view->load('asignaciones/asignacionesTecnico', compact('options','msg_success','msg_error'));
+    }
+    
 }

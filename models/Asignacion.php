@@ -23,4 +23,9 @@ class Asignacion extends Model
     {
         return $this->belongsTo(Prioridad::class);
     }
+
+    public function resoluciones()
+    {
+        return $this->hasMany(Resolucion::class);
+    }
 }

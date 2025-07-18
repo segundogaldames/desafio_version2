@@ -23,4 +23,9 @@ class Usuario extends Model
     {
         return $this->hasMany(Asignacion::class);
     }
+
+    public function resoluciones()
+    {
+        return $this->hasMany(Resolucion::class);
+    }
 }

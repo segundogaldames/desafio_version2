@@ -1,0 +1,12 @@
+<form action="{{BASE}}{{options.process}}" method="post">
+    <div class="mb-3">
+        <label for="descripción" class="form-label">Tareas Realizadas</label>
+        <textarea name="descripcion" class="form-control" id="descripcion" rows="10" resize="none" aria-describedby="rol">
+        
+        </textarea>    
+        <div id="descripcion" class="form-text text-danger">Ingrese la lista de tareas realizadas</div>
+    </div>
+    <input type="hidden" name="_method" value="PUT">
+    <input type="hidden" name="send" value="{{options.send}}">
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>
